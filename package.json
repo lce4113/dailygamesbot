@@ -1,14 +1,17 @@
 {
   "dependencies": {
     "discord.js": "^14.14.1",
-    "google-sheets-api": "^1.0.1"
+    "google-auth-library": "^9.6.3",
+    "google-sheets-api": "^1.0.1",
+    "google-spreadsheet": "^4.1.1"
   },
   "name": "dailygamesbot",
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "nodemon ."
+    "test": "nodemon .",
+    "start": "node ."
   },
   "keywords": [],
   "author": "Om Mahesh <2om.mahesh@gmail.com>",
