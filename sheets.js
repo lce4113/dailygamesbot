@@ -13,10 +13,6 @@ const serviceAccountAuth = new JWT({
 const doc = new GoogleSpreadsheet(SHEETS_ID, serviceAccountAuth);
 
 async function cellByUser(sheet, user) {
-  await sheet.loadCells('A1:1')
-  const row = (await sheet.getCellByA1(`A1`)).value
-  // const rows = await sheet.getRows();
-  // rows[0]
 }
 
 export async function read() {
@@ -24,11 +20,9 @@ export async function read() {
   console.log(doc.title);
 }
 
-export async function add() {
-  await doc.loadInfo(); // loads document properties and worksheets
-  const sheet = doc.sheetsByIndex[0]
-  // await sheet.addRow({ lce4113: 'asdf' });
-  const r = await todaysRow(sheet)
-  // const c = todaysRow(sheet)
-  console.log(r)
+export async function addToSheet(date, user, id, game, time) {
+  console.log(...arguments);
+  await doc.loadInfo(); // loads doc properties and worksheets
+  const sheet = doc.sheetsById[616135473] // "data" sheet
+  await sheet.addRow({ date, user, id, game, time, })
 }
