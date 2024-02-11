@@ -1,11 +1,18 @@
 // Import things
 import { Client, Events, GatewayIntentBits } from 'discord.js'
-import CONFIG from './config.js'
-import { addToSheet as addToSheet, read } from './sheets.js'
-const { TOKEN, CHANNELS } = CONFIG
+import { addToSheet } from './sheets.js'
+import dotenv from 'dotenv'
+dotenv.config()
 
 // Create a new client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessages] })
+
+// Channels the bot listens to
+const CHANNELS = [
+  "1145459706551357550", // #daily-games-and-stuff (Nerds)
+  "837501692256714752", // #bot-messages (lce4113's Cave)
+  "892280702375170058", // #enter-the-cave (lce4113's Cave)
+]
 
 // Message listener
 client.on('messageCreate', async msg => {
@@ -28,4 +35,4 @@ client.once(Events.ClientReady, async readyClient => {
 })
 
 // Log in to Discord with your client's token
-client.login(TOKEN)
+client.login(process.env.TOKEN)
