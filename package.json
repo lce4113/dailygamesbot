@@ -1,11 +1,4 @@
 {
-  "dependencies": {
-    "discord.js": "^14.14.1",
-    "dotenv": "^16.4.2",
-    "google-auth-library": "^9.6.3",
-    "google-sheets-api": "^1.0.1",
-    "google-spreadsheet": "^4.1.1"
-  },
   "name": "dailygamesbot",
   "version": "1.0.0",
   "main": "index.js",
@@ -13,6 +6,16 @@
   "scripts": {
     "test": "nodemon .",
     "start": "node ."
+  },
+  "dependencies": {
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.4.2",
+    "google-auth-library": "^9.6.3",
+    "google-sheets-api": "^1.0.1",
+    "google-spreadsheet": "^4.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.3"
   },
   "keywords": [],
   "author": "Om Mahesh <2om.mahesh@gmail.com>",
