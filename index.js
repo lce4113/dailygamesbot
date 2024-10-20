@@ -1,6 +1,6 @@
 // Import things
 import { Client, Events, GatewayIntentBits } from 'discord.js'
-import { addToSheet } from './sheets.js'
+import { read } from './read.js'
 import dotenv from 'dotenv'
 dotenv.config()
 
@@ -16,22 +16,24 @@ const CHANNELS = [
 
 // Message listener
 client.on('messageCreate', async msg => {
+  if (msg.author.bot) return
   if (!CHANNELS.includes(msg.channel.id)) return
-  if (msg.content.includes("New York Times Mini Crossword")) {
-    const date = msg.content.match(/\d+\/\d+\/\d+/)[0]
-    const time = '0:' + msg.content.match(/\d+:\d+/)[0]
-    addToSheet(date, msg.author.displayName, msg.author.id, "mini", time)
-  }
-  if (msg.content.includes("https://www.nytimes.com/badges/games/mini.html")) {
-    const date = msg.content.match(/\d+-\d+-\d+/)[0]
-    const time = '0:0:' + msg.content.match(/t=(\d+)/)[1]
-    addToSheet(date, msg.author.displayName, msg.author.id, "mini", time)
-  }
+  await read(msg.content)
 })
 
 // When the client is ready, run this code (only once)
 client.once(Events.ClientReady, async readyClient => {
   console.log(`Ready! Logged in as ${readyClient.user.tag}`)
+  const channel = await client.channels.fetch(CHANNELS[0])
+  console.log(channel.name)
+  let all_msgs = [], last_msg = 1197420445989879888
+  for (let i = 0; i < 10; i++) {
+    const msgs = await channel.messages.fetch({ limit: 100, before: last_msg })
+    all_msgs.push(...msgs.values())
+    last_msg = msgs.last().id
+  }
+  // msgs.forEach(async msg => await read(msg))
+  for await (const msg of all_msgs) await read(msg);
 })
 
 // Log in to Discord with your client's token
